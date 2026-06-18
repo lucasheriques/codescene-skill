@@ -10,6 +10,19 @@ Current release: `v0.1.1`.
 
 ## Install
 
+With GitHub CLI:
+
+```bash
+gh skill install lucasheriques/codescene-skill codescene-code-health --agent codex --scope user
+gh skill install lucasheriques/codescene-skill codescene-code-health --agent claude-code --scope user
+```
+
+Pin to the published release:
+
+```bash
+gh skill install lucasheriques/codescene-skill codescene-code-health --pin v0.1.1 --agent codex --scope user
+```
+
 Install the skill globally for Codex and Claude Code:
 
 ```bash
