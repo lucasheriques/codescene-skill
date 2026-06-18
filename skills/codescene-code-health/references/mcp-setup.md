@@ -1,6 +1,6 @@
 # MCP Setup
 
-Read this when CodeScene MCP tools are not available, when a user asks to install CodeScene for an agent, or when adapting the skill to a new machine.
+Read this when CodeScene MCP tools are not available, when a user asks to install CodeScene for an agent, or when adapting the skill to a new project or machine.
 
 ## Prerequisites
 
@@ -14,17 +14,23 @@ Get CodeScene MCP access from [CodeScene CodeHealth MCP](https://codescene.com/p
 
 ## Helper Script
 
-After installing the skill, run:
+After installing the skill, run this to configure Codex, Claude Code, and Cursor at user scope:
 
 ```bash
-node ~/.agents/skills/codescene-code-health/scripts/install-mcp.mjs --agent both --apply
+node ~/.agents/skills/codescene-code-health/scripts/install-mcp.mjs --scope user --apply
 ```
 
-The helper avoids writing the CodeScene token into agent config by default. Pass `--store-claude-token` only when you explicitly accept storing `CS_ACCESS_TOKEN` in Claude Code config.
+For project scope, run from the project root:
+
+```bash
+node .agents/skills/codescene-code-health/scripts/install-mcp.mjs --scope project --apply
+```
+
+The helper avoids writing the CodeScene token into agent config by default. It configures Codex to forward `CS_ACCESS_TOKEN`, Cursor to read `${env:CS_ACCESS_TOKEN}`, and Claude Code to use the launching environment. Pass `--store-claude-token` only when you explicitly accept storing `CS_ACCESS_TOKEN` in Claude Code config.
 
 ## Codex
 
-For a user-level setup across repositories, add a `codescene` MCP server to `~/.codex/config.toml`:
+The helper writes this block to `~/.codex/config.toml` for user scope or `.codex/config.toml` for project scope:
 
 ```toml
 [mcp_servers.codescene]
@@ -35,18 +41,36 @@ env_vars = ["CS_ACCESS_TOKEN"]
 
 Restart Codex after changing the config. In the Codex TUI or app, use `/mcp` to check that the server is available.
 
-For a repository-local setup, put the same block in `.codex/config.toml` for a trusted project. Use repo-local setup when the team wants an explicit project dependency or a pinned local package.
-
 ## Claude Code
 
-For a user-level setup across repositories:
+The helper runs this command for user or project scope:
 
 ```bash
-claude mcp add codescene --scope user -- pnpm dlx --package @codescene/codehealth-mcp@1.3.4 cs-mcp
+claude mcp add codescene --scope <user|project> -- pnpm dlx --package @codescene/codehealth-mcp@1.3.4 cs-mcp
 claude mcp list
 ```
 
-Use `--scope project` only when the repository should share MCP configuration with the team. Do not commit secrets in `.mcp.json`.
+Use project scope only when the repository should share MCP configuration with the team. Do not commit secrets in `.mcp.json`.
+
+## Cursor
+
+The helper writes a `codescene` server to `~/.cursor/mcp.json` for user scope or `.cursor/mcp.json` for project scope:
+
+```json
+{
+  "mcpServers": {
+    "codescene": {
+      "command": "pnpm",
+      "args": ["dlx", "--package", "@codescene/codehealth-mcp@1.3.4", "cs-mcp"],
+      "env": {
+        "CS_ACCESS_TOKEN": "${env:CS_ACCESS_TOKEN}"
+      }
+    }
+  }
+}
+```
+
+After writing the file, open Cursor settings and check the MCP tools list if the server does not appear automatically.
 
 ## Troubleshooting
 

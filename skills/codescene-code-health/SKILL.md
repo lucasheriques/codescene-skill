@@ -1,6 +1,6 @@
 ---
 name: codescene-code-health
-description: Use when reviewing code quality with CodeScene Code Health MCP tools, before committing or pushing changes, when asked to run CodeScene, code-health, file score, file review, pre-commit safeguard, branch/change-set analysis, or when applying a ratcheted quality policy to touched code without broad unrelated refactors.
+description: "Use when setting up or reviewing code quality with CodeScene Code Health MCP tools: initializing/onboarding a repository, configuring CodeScene MCP for Codex, Claude Code, or Cursor, before committing or pushing changes, running CodeScene, code-health, file score, file review, pre-commit safeguard, branch/change-set analysis, or applying a ratcheted quality policy to touched code without broad unrelated refactors."
 license: MIT
 ---
 
@@ -16,7 +16,19 @@ Use CodeScene as a focused code-health signal for the code already in scope. Pre
 2. Inspect the user's request, `git status`, and the touched files before selecting a CodeScene tool.
 3. Check whether CodeScene MCP tools are available in the session. If they are missing, do not invent scores or reviews; use `references/mcp-setup.md` to help the user configure the server.
 4. Preserve unrelated user work. Do not stage, revert, or refactor unrelated files to chase a score.
-5. If the user asks you to set up MCP, use `scripts/install-mcp.mjs` as the opt-in helper. Do not store tokens in agent config unless the user explicitly asks for that.
+5. If the user asks you to set up MCP, use `scripts/install-mcp.mjs` as the opt-in helper. It can configure Codex, Claude Code, and Cursor. Do not store tokens in agent config unless the user explicitly asks for that.
+
+## Init / Onboarding
+
+Treat requests like "init CodeScene", "$codescene init", "set up CodeScene for this repo", or "onboard this project" as an onboarding flow.
+
+1. Read `references/mcp-setup.md`.
+2. Decide scope from the user's wording: use project scope for "this repo/project"; use user scope for "all projects" or "this machine".
+3. Verify `CS_ACCESS_TOKEN` is available. If it is missing, point the user to CodeScene MCP access and stop before claiming tools are ready.
+4. Configure MCP with `scripts/install-mcp.mjs --scope project --apply` or `scripts/install-mcp.mjs --scope user --apply` when setup is requested.
+5. Restart or reconnect the agent session if newly configured MCP tools are not visible yet.
+6. Run the smallest first CodeScene check that fits the repo state: `pre_commit_code_health_safeguard` for local changes, `analyze_change_set` for a branch, or `code_health_score` for a named file.
+7. Report the configured agents, files written, first check result, and any files the user should commit.
 
 ## Tool Selection
 
@@ -56,7 +68,7 @@ When reporting back, include:
 
 ## References
 
-- Read `references/mcp-setup.md` when CodeScene MCP is missing or the user asks how to configure Codex or Claude Code.
+- Read `references/mcp-setup.md` when CodeScene MCP is missing or the user asks how to configure Codex, Claude Code, or Cursor.
 - Read `references/ratchet-policy.md` before defining thresholds, exceptions, or repository quality gates.
 - Read `references/nagringa-case-study.md` when adapting this workflow to another repository or explaining why the skill is shaped this way.
 - Run `scripts/install-mcp.mjs --help` when the user wants this skill to help configure the CodeScene MCP server.
