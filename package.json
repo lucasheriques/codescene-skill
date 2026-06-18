@@ -1,6 +1,6 @@
 {
   "name": "codescene-skill",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Agent Skill for CodeScene Code Health workflows.",
   "license": "MIT",
   "type": "module",

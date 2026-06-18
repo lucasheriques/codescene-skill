@@ -1,6 +1,7 @@
 ---
 name: codescene-code-health
 description: Use when reviewing code quality with CodeScene Code Health MCP tools, before committing or pushing changes, when asked to run CodeScene, code-health, file score, file review, pre-commit safeguard, branch/change-set analysis, or when applying a ratcheted quality policy to touched code without broad unrelated refactors.
+license: MIT
 ---
 
 # CodeScene Code Health

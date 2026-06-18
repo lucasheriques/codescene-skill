@@ -6,7 +6,7 @@ An open Agent Skill for running CodeScene Code Health workflows from coding agen
 
 The goal is simple: make the useful CodeScene flow available in Codex, Claude Code, and other skill-aware agents without copying a pile of repository-specific scripts into every project.
 
-Current release: `v0.1.0`.
+Current release: `v0.1.1`.
 
 ## Install
 
