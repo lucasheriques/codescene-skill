@@ -1,0 +1,11 @@
+{
+  "name": "codescene-skill",
+  "version": "0.1.0",
+  "description": "Agent Skill for CodeScene Code Health workflows.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "setup:mcp": "node skills/codescene-code-health/scripts/install-mcp.mjs",
+    "validate": "npx skills add . --list"
+  }
+}

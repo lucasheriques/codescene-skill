@@ -1,0 +1,4 @@
+interface:
+  display_name: "CodeScene Code Health"
+  short_description: "Run CodeScene health checks"
+  default_prompt: "Use $codescene-code-health to review my changes with CodeScene before I commit."
