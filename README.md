@@ -6,7 +6,7 @@ Make Codex, Claude Code, and Cursor code-health aware with CodeScene's MCP serve
 
 This skill helps agents review touched code, catch maintainability regressions before commit, and apply a simple quality ratchet: new code should be healthy, healthy code should not regress, and legacy code touched by the change should improve when practical.
 
-Current release: `v0.1.3`.
+Current release: `v0.1.4`.
 
 ## Why Add It
 

@@ -161,11 +161,19 @@ function configureClaude(options) {
     return;
   }
 
-  const result = spawnSync("claude", args, { stdio: "inherit" });
+  const result = spawnSync("claude", args, { encoding: "utf8" });
   if (result.status !== 0) {
+    const output = `${result.stdout ?? ""}${result.stderr ?? ""}`;
+    if (/already exists/i.test(output)) {
+      console.log(`Claude Code CodeScene MCP already exists at ${options.scope} scope.`);
+      return;
+    }
+    writeProcessOutput(result);
     console.error("Failed to configure Claude Code MCP.");
     process.exit(result.status ?? 1);
   }
+
+  writeProcessOutput(result);
 }
 
 function configureCursor(options) {
@@ -241,6 +249,15 @@ function upsertMcpServer(config, serverName, serverConfig) {
       [serverName]: serverConfig,
     },
   };
+}
+
+function writeProcessOutput(result) {
+  if (result.stdout) {
+    process.stdout.write(result.stdout);
+  }
+  if (result.stderr) {
+    process.stderr.write(result.stderr);
+  }
 }
 
 function upsertTomlTable(content, tableName, tableBlock) {
