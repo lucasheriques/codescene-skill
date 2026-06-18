@@ -106,12 +106,6 @@ The examples below are illustrative mockups, not output from a private repositor
 
 ![Example CodeScene branch analysis handoff](./assets/example-branch-summary.svg)
 
-## Notes
-
-- Direct install works now; `skills.sh` search can lag because it indexes from install telemetry.
-- The CodeScene MCP server is required for real scores and reviews.
-- The skill complements tests, typechecks, and linters. It does not replace them.
-
 ## Develop
 
 ```bash
