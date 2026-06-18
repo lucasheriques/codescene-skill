@@ -6,7 +6,7 @@ An open Agent Skill for running CodeScene Code Health workflows from coding agen
 
 The goal is simple: make the useful CodeScene flow available in Codex, Claude Code, and other skill-aware agents without copying a pile of repository-specific scripts into every project.
 
-Current release: `v0.1.1`.
+Current release: `v0.1.2`.
 
 ## Install
 
@@ -20,7 +20,7 @@ gh skill install lucasheriques/codescene-skill codescene-code-health --agent cla
 Pin to the published release:
 
 ```bash
-gh skill install lucasheriques/codescene-skill codescene-code-health --pin v0.1.1 --agent codex --scope user
+gh skill install lucasheriques/codescene-skill codescene-code-health --pin v0.1.2 --agent codex --scope user
 ```
 
 Install the skill globally for Codex and Claude Code:
@@ -46,6 +46,8 @@ npx skills add . \
 ## Configure CodeScene MCP
 
 The skill teaches the workflow. The CodeScene tools come from the CodeScene MCP server, so each agent still needs MCP setup.
+
+Get MCP access and a token from [CodeScene CodeHealth MCP](https://codescene.com/product/code-health-mcp). [CodeScene's MCP docs](https://codescene.io/docs/developer-tools/mcp/codescene-mcp-server.html) also describe the `CS_ACCESS_TOKEN` setup for CodeScene Cloud and on-prem installs.
 
 Set your token:
 
@@ -78,6 +80,16 @@ claude mcp list
 ```
 
 Restart the agent session after adding the server.
+
+## Example Outputs
+
+These screenshots are illustrative mockups based on the skill workflow, not captured output from a specific private repository. They show the kind of agent handoff this skill is meant to produce: scoped, actionable, and tied to a ratchet policy.
+
+![Example CodeScene pre-commit safeguard output](./assets/example-precommit-ratchet.svg)
+
+![Example CodeScene file improvement output](./assets/example-file-improvement.svg)
+
+![Example CodeScene branch analysis handoff](./assets/example-branch-summary.svg)
 
 ## Use
 
@@ -147,6 +159,18 @@ Those scripts were useful for that monorepo, but they also included NaGringa-spe
 - Keep credentials out of the skill and out of committed config.
 - Encourage small, scoped fixes instead of drive-by rewrites.
 - Help teams adopt a quality ratchet before tightening gates.
+
+## Indexing on skills.sh
+
+There is no manual submit button for `skills.sh`. Public skill repositories become discoverable after installs flow through the open skills CLI:
+
+```bash
+npx skills add lucasheriques/codescene-skill --skill codescene-code-health
+```
+
+`skills.sh` ranks repositories from anonymous install telemetry. Repo pages can lag behind successful installs because they are cached, so direct install commands are the source of truth while the index catches up.
+
+This repo includes `skills.sh.json` so, once the repository page is indexed, the `codescene-code-health` skill is grouped under Code Health.
 
 ## Non-Goals
 

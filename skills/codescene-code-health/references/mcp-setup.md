@@ -10,6 +10,8 @@ Read this when CodeScene MCP tools are not available, when a user asks to instal
 
 The skill can be installed without the MCP server, but the useful CodeScene operations need the server.
 
+Get CodeScene MCP access from [CodeScene CodeHealth MCP](https://codescene.com/product/code-health-mcp). For token details, [CodeScene's MCP documentation](https://codescene.io/docs/developer-tools/mcp/codescene-mcp-server.html) says the server needs `CS_ACCESS_TOKEN`; CodeScene Cloud users can create it at `https://codescene.io/users/me/pat`, while on-prem users use their own CodeScene host token URL.
+
 ## Helper Script
 
 After installing the skill, run:

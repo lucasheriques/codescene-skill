@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="760" viewBox="0 0 1280 760" role="img" aria-labelledby="title desc">
+  <title id="title">Example CodeScene file improvement</title>
+  <desc id="desc">Illustrative before and after screenshot showing a touched file improved after a scoped refactor.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#101828"/>
+      <stop offset="0.5" stop-color="#173a3f"/>
+      <stop offset="1" stop-color="#2a2834"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#020617" flood-opacity="0.34"/>
+    </filter>
+    <style>
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace; }
+      .sans { font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .ink { fill: #0f172a; }
+      .muted { fill: #64748b; }
+      .light { fill: #f8fafc; }
+      .bad { fill: #dc2626; }
+      .good { fill: #16a34a; }
+      .amber { fill: #d97706; }
+    </style>
+  </defs>
+
+  <rect width="1280" height="760" rx="36" fill="url(#bg)"/>
+  <text x="104" y="112" class="sans light" font-size="34" font-weight="800">Code health ratchet: before and after</text>
+  <text x="104" y="150" class="sans" font-size="19" fill="#cbd5e1">Illustrative output based on the CodeScene skill workflow.</text>
+
+  <g filter="url(#shadow)">
+    <rect x="104" y="198" width="506" height="430" rx="26" fill="#fff7ed"/>
+    <rect x="104" y="198" width="506" height="74" rx="26" fill="#ffffff"/>
+    <text x="136" y="245" class="sans ink" font-size="24" font-weight="800">Before</text>
+    <text x="506" y="245" text-anchor="end" class="sans bad" font-size="24" font-weight="800">7.2</text>
+    <text x="136" y="318" class="mono ink" font-size="20">renewSubscription()</text>
+    <text x="136" y="354" class="sans muted" font-size="18">142 lines, 5 nested branches</text>
+    <text x="136" y="390" class="sans muted" font-size="18">Validation, date math, persistence, and</text>
+    <text x="136" y="418" class="sans muted" font-size="18">notification scheduling share one path.</text>
+    <rect x="136" y="462" width="120" height="12" rx="6" fill="#fb923c"/>
+    <rect x="136" y="490" width="270" height="12" rx="6" fill="#fdba74"/>
+    <rect x="136" y="518" width="330" height="12" rx="6" fill="#fed7aa"/>
+    <rect x="136" y="546" width="210" height="12" rx="6" fill="#fdba74"/>
+    <text x="136" y="592" class="sans amber" font-size="18" font-weight="700">Finding: split high-risk renewal branching.</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="670" y="198" width="506" height="430" rx="26" fill="#ecfdf5"/>
+    <rect x="670" y="198" width="506" height="74" rx="26" fill="#ffffff"/>
+    <text x="702" y="245" class="sans ink" font-size="24" font-weight="800">After</text>
+    <text x="1072" y="245" text-anchor="end" class="sans good" font-size="24" font-weight="800">8.6</text>
+    <text x="702" y="318" class="mono ink" font-size="20">renewSubscription()</text>
+    <text x="702" y="354" class="sans muted" font-size="18">62-line coordinator with extracted helpers:</text>
+    <text x="730" y="394" class="mono ink" font-size="18">resolveRenewalWindow()</text>
+    <text x="730" y="426" class="mono ink" font-size="18">buildEntitlementPatch()</text>
+    <text x="730" y="458" class="mono ink" font-size="18">scheduleRenewalNotice()</text>
+    <rect x="702" y="502" width="126" height="14" rx="7" fill="#22c55e"/>
+    <rect x="842" y="502" width="126" height="14" rx="7" fill="#22c55e"/>
+    <rect x="982" y="502" width="126" height="14" rx="7" fill="#22c55e"/>
+    <text x="702" y="592" class="sans good" font-size="18" font-weight="700">Validated with tests and CodeScene rerun.</text>
+  </g>
+</svg>

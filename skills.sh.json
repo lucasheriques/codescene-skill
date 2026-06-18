@@ -1,0 +1,11 @@
+{
+  "$schema": "https://skills.sh/schemas/skills.sh.schema.json",
+  "notGrouped": "bottom",
+  "groupings": [
+    {
+      "title": "Code Health",
+      "description": "Use CodeScene MCP from coding agents with a local quality ratchet.",
+      "skills": ["codescene-code-health"]
+    }
+  ]
+}
